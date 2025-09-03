@@ -1,7 +1,7 @@
 name: Deploy via Tailscale
 
 on:
-  # Se activa cada vez que haces un 'git push' a cualquier ramas
+  # Se activa cada vez que haces un 'git push' a cualquier rama
   push:
     branches:
       - '**'
