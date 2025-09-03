@@ -31,4 +31,4 @@ jobs:
           # Guarda el nombre de la rama actual en una variable
           BRANCH_NAME=${{ github.ref_name }}
           # Ejecuta el script en el servidor, pasándole el nombre de la rama
-          ssh -o StrictHostKeyChecking=no adso@100.69.132.91 "sudo /var/www/deploy.sh $BRANCH_NAME"
+          ssh -o StrictHostKeyChecking=no adso@100.69.132.91 " /var/www/deploy.sh $BRANCH_NAME"
