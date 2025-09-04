@@ -1,4 +1,4 @@
-name: Deploy via Tailscale
+name: Deploy via Tailscales
 
 on:
   push:
