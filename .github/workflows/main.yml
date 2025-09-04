@@ -9,7 +9,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      # 1. Instala Tailscale en el runner de GitHub
+      # 1. Instala Tailscale en el runner de GitHubs
       - name: Install Tailscale
         run: curl -fsSL https://tailscale.com/install.sh | sh
 
