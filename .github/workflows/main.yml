@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - '**'
-
-jobs:
+#  paths:
+jobs: 
   deploy:
     runs-on: ubuntu-latest
     steps:
