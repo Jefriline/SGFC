@@ -13,7 +13,7 @@ import { EmailVerification } from './Components/Pages/EmailVerification/EmailVer
 import { ResetPassword } from './Components/Pages/ResetPassword/ResetPassword';
 import { CreateCourse } from './Components/Pages/Courses/CreateCourse/CreateCourse';
 import { ConsultCourses } from './Components/Pages/Courses/Consult/ConsultCourses';
-import { SeeCourse } from './Components/Pages/Courses/SeeCourse/SeeCourse';
+import { SeeCourse } from './Components/Pages/Courses/SeeCourse/SeeCourse';//
 import { UpdateCourse } from './Components/Pages/Courses/UpdateCourse/UpdateCourse';
 import { MisCursos } from './Components/Pages/Courses/MisCursos/MisCursos';
 import { GestionsInstructor } from './Components/Pages/GestionsInstructor/GestionsInstructor';
