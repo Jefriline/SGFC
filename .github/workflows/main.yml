@@ -1,7 +1,6 @@
 name: Deploy via Tailscale
 
 on:
-  # Se activa cada vez que haces un 'git push' a cualquier ramassss
   push:
     branches:
       - '**'
@@ -18,17 +17,23 @@ jobs:
       - name: Connect to Tailscale
         run: sudo tailscale up --authkey=${{ secrets.TAILSCALE_AUTHKEY }} --hostname=github-runner
 
-      # 3. Configura la clave SSH privada para la conexión
+      # 3. Esperar y verificar conexión
+      - name: Wait for Tailscale connection
+        run: |
+          echo "Esperando conexión a Tailscale..."
+          sleep 15
+          tailscale status
+          ping -c 3 100.123.209.103
+
+      # 4. Configura la clave SSH privada
       - name: Setup SSH Key
         run: |
           mkdir -p ~/.ssh/
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
-      # 4. Se conecta a tu servidor y ejecuta el script de despliegue
+      # 5. Se conecta a tu servidor y ejecuta el script
       - name: Deploy to Server
         run: |
-          # Guarda el nombre de la rama actual en una variable
           BRANCH_NAME=${{ github.ref_name }}
-          # Ejecuta el script en el servidor, pasándole el nombre de la rama
           ssh -o StrictHostKeyChecking=no adso@100.123.209.103 "/var/www/deploy.sh $BRANCH_NAME"
