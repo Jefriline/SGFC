@@ -15,7 +15,7 @@ jobs:
       - name: Connect to Tailscale
         run: sudo tailscale up --authkey=${{ secrets.TAILSCALE_AUTHKEY }} --hostname=github-runner
 
-      - name: Wait for Tailscale and verify connection
+      - name: Wait for Tailscale connection
         run: |
           echo "Esperando conexión a Tailscale..."
           sleep 20
@@ -32,7 +32,7 @@ jobs:
       - name: Test SSH connection
         run: |
           echo "Probando conexión SSH..."
-          ssh -v -o StrictHostKeyChecking=no -o ConnectTimeout=30 adso@100.123.209.103 "echo 'SSH desde GitHub Actions funciona'"
+          ssh -o StrictHostKeyChecking=no -o ConnectTimeout=30 adso@100.123.209.103 "echo 'SSH desde GitHub Actions funciona'"
 
       - name: Deploy to Server
         run: |
