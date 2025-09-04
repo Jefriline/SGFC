@@ -9,25 +9,22 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Install Tailscale
-        run: curl -fsSL https://tailscale.com/install.sh | sh
-
-      - name: Connect to Tailscale  
-        run: sudo tailscale up --authkey=${{ secrets.TAILSCALE_AUTHKEY }} --hostname=github-runner
-
-      - name: Wait for Tailscale connection
-        run: |
-          echo "Esperando conexión a Tailscale..."
-          sleep 30
-          tailscale status
-
-      - name: Setup SSH Key
-        run: |
-          mkdir -p ~/.ssh/
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-
-      - name: Deploy to Server
+      - name: Deploy via HTTP webhook
         run: |
           BRANCH_NAME=${{ github.ref_name }}
-          ssh -o StrictHostKeyChecking=no adso@100.123.209.103 "/var/www/deploy.sh $BRANCH_NAME"
+          echo "🚀 Desplegando rama: $BRANCH_NAME"
+          
+          response=$(curl -s -X POST "https://adso.tail48df19.ts.net/webhook/deploy" \
+            -H "Content-Type: application/json" \
+            -d "{\"branch\": \"$BRANCH_NAME\"}" \
+            --max-time 300 \
+            -w "HTTP_CODE:%{http_code}")
+          
+          echo "📡 Respuesta: $response"
+          
+          if echo "$response" | grep -q "HTTP_CODE:200"; then
+            echo "✅ Deploy exitoso"
+          else
+            echo "❌ Deploy falló"
+            exit 1
+          fi
