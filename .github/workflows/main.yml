@@ -30,4 +30,4 @@ jobs:
       - name: Deploy to Server
         run: |
           BRANCH_NAME=${{ github.ref_name }}
-          ssh -o StrictHostKeyChecking=no -o ConnectTimeout=30 adso@100.123.209.103 "/var/www/deploy.sh $BRANCH_NAME"
+          ssh -o StrictHostKeyChecking=no adso@100.123.209.103 "/var/www/deploy.sh $BRANCH_NAME"
